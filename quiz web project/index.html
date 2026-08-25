@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Online Quiz System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <section id="loginPage" class="page active">
+        <div class="auth-box">
+            <div class="logo">Quiz<span>Master</span></div>
+            <p class="subtitle">Test your knowledge. Beat the leaderboard.</p>
+
+            <form id="loginForm">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+
+            <p class="switch-text">
+                Don't have an account?
+                <button onclick="showPage('registerPage')" class="link-btn">
+                    Register
+                </button>
+            </p>
+        </div>
+    </section>
+
+
+    <!-- REGISTER PAGE -->
+    <section id="registerPage" class="page">
+        <div class="auth-box">
+            <div class="logo">Quiz<span>Master</span></div>
+            <p class="subtitle">Create your account</p>
+
+            <form id="registerForm">
+                <label>Full Name</label>
+                <input type="text" id="registerName" placeholder="Enter your name" required>
+
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="Enter your email" required>
+
+                <label>Password</label>
+                <input type="password" id="registerPassword" placeholder="Create a password" required>
+
+                <button type="submit" class="primary-btn">Create Account</button>
+            </form>
+
+            <p class="switch-text">
+                Already have an account?
+                <button onclick="showPage('loginPage')" class="link-btn">
+                    Login
+                </button>
+            </p>
+        </div>
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section id="dashboardPage" class="page">
+
+        <nav class="navbar">
+            <div class="logo">Quiz<span>Master</span></div>
+
+            <div class="nav-right">
+                <span id="welcomeUser">Welcome!</span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </nav>
+
+        <main class="dashboard">
+
+            <div class="hero">
+                <div>
+                    <p class="small-title">WELCOME BACK 👋</p>
+                    <h1>Ready to test your knowledge?</h1>
+                    <p>Choose a quiz and challenge yourself.</p>
+                </div>
+            </div>
+
+            <h2>Available Quizzes</h2>
+
+            <div class="quiz-grid">
+
+                <div class="quiz-card">
+                    <div class="quiz-icon">🌐</div>
+                    <h3>Web Technology</h3>
+                    <p>Test your knowledge of HTML, CSS and JavaScript.</p>
+
+                    <div class="quiz-info">
+                        <span>5 Questions</span>
+                        <span>5 Minutes</span>
+                    </div>
+
+                    <button onclick="startQuiz()" class="primary-btn">
+                        Start Quiz
+                    </button>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-icon">💻</div>
+                    <h3>Programming Basics</h3>
+                    <p>Challenge yourself with basic programming concepts.</p>
+
+                    <div class="quiz-info">
+                        <span>Coming Soon</span>
+                    </div>
+
+                    <button class="disabled-btn">Coming Soon</button>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-icon">🗄️</div>
+                    <h3>Database</h3>
+                    <p>Test your knowledge of SQL and databases.</p>
+
+                    <div class="quiz-info">
+                        <span>Coming Soon</span>
+                    </div>
+
+                    <button class="disabled-btn">Coming Soon</button>
+                </div>
+
+            </div>
+
+            <section class="stats">
+                <div class="stat-card">
+                    <span>Quizzes Taken</span>
+                    <strong id="quizCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Best Score</span>
+                    <strong id="bestScore">0%</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Leaderboard Rank</span>
+                    <strong>#12</strong>
+                </div>
+            </section>
+
+        </main>
+    </section>
+
+
+    <!-- QUIZ PAGE -->
+    <section id="quizPage" class="page">
+
+        <nav class="navbar">
+            <div class="logo">Quiz<span>Master</span></div>
+
+            <div class="timer">
+                ⏱ <span id="timer">05:00</span>
+            </div>
+        </nav>
+
+        <main class="quiz-container">
+
+            <div class="quiz-header">
+                <div>
+                    <p class="small-title">WEB TECHNOLOGY</p>
+                    <h2 id="questionNumber">Question 1 of 5</h2>
+                </div>
+
+                <div class="progress">
+                    <div id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+
+                <h2 id="questionText">
+                    Question goes here
+                </h2>
+
+                <div id="optionsContainer"></div>
+
+                <div class="quiz-buttons">
+                    <button id="previousBtn"
+                            onclick="previousQuestion()"
+                            class="secondary-btn">
+                        ← Previous
+                    </button>
+
+                    <button id="nextBtn"
+                            onclick="nextQuestion()"
+                            class="primary-btn">
+                        Next →
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
+    </section>
+
+
+    <!-- RESULT PAGE -->
+    <section id="resultPage" class="page">
+
+        <nav class="navbar">
+            <div class="logo">Quiz<span>Master</span></div>
+        </nav>
+
+        <main class="result-container">
+
+            <div class="result-card">
+
+                <div class="result-icon">🏆</div>
+
+                <p class="small-title">QUIZ COMPLETED</p>
+
+                <h1>Your Result</h1>
+
+                <div class="score-circle">
+                    <span id="finalScore">0%</span>
+                </div>
+
+                <h2 id="scoreMessage">Good Job!</h2>
+
+                <div class="result-stats">
+
+                    <div>
+                        <span>Correct</span>
+                        <strong id="correctAnswers">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Wrong</span>
+                        <strong id="wrongAnswers">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Total</span>
+                        <strong>5</strong>
+                    </div>
+
+                </div>
+
+                <div class="result-buttons">
+                    <button onclick="startQuiz()" class="primary-btn">
+                        Try Again
+                    </button>
+
+                    <button onclick="showLeaderboard()" class="secondary-btn">
+                        Leaderboard
+                    </button>
+
+                    <button onclick="showPage('dashboardPage')" class="secondary-btn">
+                        Dashboard
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
+    </section>
+
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboardPage" class="page">
+
+        <nav class="navbar">
+            <div class="logo">Quiz<span>Master</span></div>
+
+            <button onclick="showPage('dashboardPage')" class="secondary-btn">
+                Dashboard
+            </button>
+        </nav>
+
+        <main class="leaderboard-container">
+
+            <div class="leaderboard-header">
+                <p class="small-title">TOP PLAYERS</p>
+                <h1>Leaderboard</h1>
+                <p>See how you compare with other players.</p>
+            </div>
+
+            <div class="leaderboard">
+
+                <div class="leader-row top">
+                    <span class="rank">1</span>
+                    <span class="player">🥇 Arjun Kumar</span>
+                    <strong>100%</strong>
+                </div>
+
+                <div class="leader-row">
+                    <span class="rank">2</span>
+                    <span class="player">🥈 Priya Sharma</span>
+                    <strong>90%</strong>
+                </div>
+
+                <div class="leader-row">
+                    <span class="rank">3</span>
+                    <span class="player">🥉 Rahul Singh</span>
+                    <strong>90%</strong>
+                </div>
+
+                <div class="leader-row">
+                    <span class="rank">4</span>
+                    <span class="player">Ananya Patel</span>
+                    <strong>80%</strong>
+                </div>
+
+                <div class="leader-row">
+                    <span class="rank">5</span>
+                    <span class="player">Vikram Raj</span>
+                    <strong>80%</strong>
+                </div>
+
+            </div>
+
+        </main>
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
